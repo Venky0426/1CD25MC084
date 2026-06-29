@@ -59,76 +59,46 @@ function generateMockNotifications() {
   // Return a realistic list of unread and read notifications
   return [
     {
-      id: '154ata-Bad-477-0554-52558',
-      content: 'CSK Corporation hiring Software Engineer Interns. Apply by end of week!',
-      timestamp: new Date(now.getTime() - 1000 * 60 * 30).toISOString(), // 30 mins ago
+      id: 'ea836726-c25e-4f21-a72f-544a6af8a37f',
+      content: 'project-review',
+      timestamp: '2026-04-22T17:50:42.000Z',
+      type: 'result',
       isRead: false
     },
     {
-      id: '201bta-Gud-112-9843-12849',
-      content: 'Semester 3 Re-evaluation Results are out. Check your student portal.',
-      timestamp: new Date(now.getTime() - 1000 * 60 * 120).toISOString(), // 2 hours ago
+      id: '003cb427-8fc6-47f7-bb8e-be228f6b8d2c',
+      content: 'external',
+      timestamp: '2026-04-22T17:58:30.000Z',
+      type: 'result',
       isRead: false
     },
     {
-      id: '302cta-Evt-441-2391-49204',
-      content: 'Annual Cultural Fest "Bloom 2026" registrations open now!',
-      timestamp: new Date(now.getTime() - 1000 * 60 * 10).toISOString(), // 10 mins ago (Recent but lower weight)
+      id: 'e5c4ff28-31bf-4d40-8492-72fda59e8918',
+      content: 'project-review',
+      timestamp: '2026-04-22T17:50:18.000Z',
+      type: 'result',
       isRead: false
     },
     {
-      id: '405dta-Plc-882-1249-58291',
-      content: 'Microsoft Campus Recruitment Drive starts next Monday. Registration mandatory.',
-      timestamp: new Date(now.getTime() - 1000 * 60 * 60 * 24).toISOString(), // 1 day ago
+      id: 'icfce5ee-ad37-4894-8946-070762717625',
+      content: 'tech-fest',
+      timestamp: '2026-04-22T17:50:06.000Z',
+      type: 'event',
       isRead: false
     },
     {
-      id: '509eta-Res-901-3829-10928',
-      content: 'Mid-term DSA Exam Marks published for MCA Batch.',
-      timestamp: new Date(now.getTime() - 1000 * 60 * 60 * 5).toISOString(), // 5 hours ago
+      id: 'cf2885a6-45ac-4ba8-b548-6e9e9d4c52c8',
+      content: 'project-review',
+      timestamp: '2026-04-22T17:49:54.000Z',
+      type: 'result',
       isRead: false
     },
     {
-      id: '601fta-Evt-221-9029-38291',
-      content: 'Guest Lecture on "Prompt Engineering & GenAI" in Seminar Hall 1.',
-      timestamp: new Date(now.getTime() - 1000 * 60 * 60 * 12).toISOString(), // 12 hours ago
+      id: '8a7412bd-6865-4d89-8501-a37f11cc848b',
+      content: 'Advanced Micro Devices Inc. hiring',
+      timestamp: '2026-04-22T17:49:42.000Z',
+      type: 'placement',
       isRead: false
-    },
-    {
-      id: '702gta-Plc-331-4829-91829',
-      content: 'Google India Off-Campus hiring for Cloud Support Roles.',
-      timestamp: new Date(now.getTime() - 1000 * 60 * 15).toISOString(), // 15 mins ago (Recent & high weight)
-      isRead: false
-    },
-    {
-      id: '809hta-Res-102-3921-29182',
-      content: 'Operating Systems Practical Exam Grades updated.',
-      timestamp: new Date(now.getTime() - 1000 * 60 * 60 * 24 * 2).toISOString(), // 2 days ago
-      isRead: false
-    },
-    {
-      id: '901ita-Evt-103-4928-10928',
-      content: 'Codeathon 2026 organized by Computer Science Club.',
-      timestamp: new Date(now.getTime() - 1000 * 60 * 45).toISOString(), // 45 mins ago
-      isRead: false
-    },
-    {
-      id: '102jta-Plc-104-5829-29182',
-      content: 'Accenture onboarding updates sent to all selected candidates.',
-      timestamp: new Date(now.getTime() - 1000 * 60 * 60 * 3).toISOString(), // 3 hours ago
-      isRead: false
-    },
-    {
-      id: '112kta-Res-105-9281-29182',
-      content: 'DBMS Project Evaluation schedule announced.',
-      timestamp: new Date(now.getTime() - 1000 * 60 * 60 * 8).toISOString(), // 8 hours ago
-      isRead: false
-    },
-    {
-      id: '122lta-Evt-106-9281-39281',
-      content: 'Inter-College Sports Meet team selections tomorrow.',
-      timestamp: new Date(now.getTime() - 1000 * 60 * 60 * 36).toISOString(), // 1.5 days ago
-      isRead: true // Read notification (should be filtered out of Priority Inbox)
     }
   ];
 }
@@ -183,10 +153,11 @@ function fetchNotifications() {
               }
               
               return {
-                id: item.id || item._id || `gen-${index}`,
-                content: item.content || item.message || '',
-                timestamp: item.timestamp || item.createdAt || new Date().toISOString(),
-                isRead: !!item.isRead
+                id: item.id || item.ID || item._id || `gen-${index}`,
+                content: item.content || item.message || item.Message || '',
+                timestamp: item.timestamp || item.Timestamp || item.createdAt || new Date().toISOString(),
+                isRead: !!item.isRead,
+                type: (item.type || item.Type || '').toLowerCase() || null
               };
             });
 
@@ -215,7 +186,7 @@ async function run() {
     // Process and enrich notifications
     const processedList = rawList.map(n => ({
       ...n,
-      type: detectType(n.content)
+      type: n.type || detectType(n.content)
     }));
 
     // Filter unread notifications

@@ -21,7 +21,7 @@ function detectType(content) {
 }
 
 // Generate premium mock notifications (persisted in session/local storage for read/write state consistency)
-const MOCK_STORAGE_KEY = 'campus_mock_notifications';
+const MOCK_STORAGE_KEY = 'campus_mock_notifications_v2';
 
 function getOrSeedMockData() {
   let stored = null;
@@ -33,28 +33,15 @@ function getOrSeedMockData() {
     return JSON.parse(stored);
   }
 
-  // Seed data
-  const now = new Date();
+  // Seed data using user-provided JSON test cases
   const seed = [
-    { id: 'n-1', content: 'CSK Corporation hiring Software Engineer Interns. Apply by end of week!', timestamp: new Date(now.getTime() - 1000 * 60 * 30).toISOString() },
-    { id: 'n-2', content: 'Semester 3 Re-evaluation Results are out. Check your student portal.', timestamp: new Date(now.getTime() - 1000 * 60 * 120).toISOString() },
-    { id: 'n-3', content: 'Annual Cultural Fest "Bloom 2026" registrations open now!', timestamp: new Date(now.getTime() - 1000 * 60 * 10).toISOString() },
-    { id: 'n-4', content: 'Microsoft Campus Recruitment Drive starts next Monday. Registration mandatory.', timestamp: new Date(now.getTime() - 1000 * 60 * 60 * 24).toISOString() },
-    { id: 'n-5', content: 'Mid-term DSA Exam Marks published for MCA Batch.', timestamp: new Date(now.getTime() - 1000 * 60 * 60 * 5).toISOString() },
-    { id: 'n-6', content: 'Guest Lecture on "Prompt Engineering & GenAI" in Seminar Hall 1.', timestamp: new Date(now.getTime() - 1000 * 60 * 60 * 12).toISOString() },
-    { id: 'n-7', content: 'Google India Off-Campus hiring for Cloud Support Roles.', timestamp: new Date(now.getTime() - 1000 * 60 * 15).toISOString() },
-    { id: 'n-8', content: 'Operating Systems Practical Exam Grades updated.', timestamp: new Date(now.getTime() - 1000 * 60 * 60 * 24 * 2).toISOString() },
-    { id: 'n-9', content: 'Codeathon 2026 organized by Computer Science Club.', timestamp: new Date(now.getTime() - 1000 * 60 * 45).toISOString() },
-    { id: 'n-10', content: 'Accenture onboarding updates sent to all selected candidates.', timestamp: new Date(now.getTime() - 1000 * 60 * 60 * 3).toISOString() },
-    { id: 'n-11', content: 'DBMS Project Evaluation schedule announced.', timestamp: new Date(now.getTime() - 1000 * 60 * 60 * 8).toISOString() },
-    { id: 'n-12', content: 'Inter-College Sports Meet team selections tomorrow.', timestamp: new Date(now.getTime() - 1000 * 60 * 60 * 36).toISOString() },
-    { id: 'n-13', content: 'Amazon WoW (Women in Technology) Internship Program registrations open.', timestamp: new Date(now.getTime() - 1000 * 60 * 60 * 48).toISOString() },
-    { id: 'n-14', content: 'Cisco Systems hiring Network Engineer Interns.', timestamp: new Date(now.getTime() - 1000 * 60 * 180).toISOString() },
-    { id: 'n-15', content: 'Mobile App Development Workshop by Pralotech Solutions.', timestamp: new Date(now.getTime() - 1000 * 60 * 60 * 2).toISOString() }
-  ].map(n => ({
-    ...n,
-    type: detectType(n.content)
-  }));
+    { id: 'ea836726-c25e-4f21-a72f-544a6af8a37f', content: 'project-review', timestamp: '2026-04-22T17:50:42.000Z', type: 'Result' },
+    { id: '003cb427-8fc6-47f7-bb8e-be228f6b8d2c', content: 'external', timestamp: '2026-04-22T17:58:30.000Z', type: 'Result' },
+    { id: 'e5c4ff28-31bf-4d40-8492-72fda59e8918', content: 'project-review', timestamp: '2026-04-22T17:50:18.000Z', type: 'Result' },
+    { id: 'icfce5ee-ad37-4894-8946-070762717625', content: 'tech-fest', timestamp: '2026-04-22T17:50:06.000Z', type: 'Event' },
+    { id: 'cf2885a6-45ac-4ba8-b548-6e9e9d4c52c8', content: 'project-review', timestamp: '2026-04-22T17:49:54.000Z', type: 'Result' },
+    { id: '8a7412bd-6865-4d89-8501-a37f11cc848b', content: 'Advanced Micro Devices Inc. hiring', timestamp: '2026-04-22T17:49:42.000Z', type: 'Placement' }
+  ];
 
   try {
     localStorage.setItem(MOCK_STORAGE_KEY, JSON.stringify(seed));
