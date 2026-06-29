@@ -108,27 +108,27 @@ export default function App() {
     try {
       localStorage.removeItem(READ_STORAGE_KEY);
       logger.info('UI', 'Reset all notification read states');
-    } catch (e) {}
+    } catch (e) { }
   };
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', bgcolor: '#f4f6f8' }}>
-        <Navbar 
-          activePage={activePage} 
-          setActivePage={setActivePage} 
+      <Box display="flex" flexDirection="column" minHeight="100vh" bgcolor="#f4f6f8">
+        <Navbar
+          activePage={activePage}
+          setActivePage={setActivePage}
           unreadCount={unreadCount}
         />
 
         <Container maxWidth="md" sx={{ flexGrow: 1, py: 2 }}>
           {activePage === 'feed' ? (
-            <NotificationsPage 
+            <NotificationsPage
               readNotificationIds={readNotificationIds}
               onMarkAsRead={handleMarkAsRead}
             />
           ) : (
-            <PriorityInboxPage 
+            <PriorityInboxPage
               readNotificationIds={readNotificationIds}
               onMarkAsRead={handleMarkAsRead}
             />
@@ -137,13 +137,13 @@ export default function App() {
 
         {readNotificationIds.length > 0 && (
           <Tooltip title="Mark all as unread" placement="left">
-            <Fab 
-              color="error" 
-              aria-label="clear" 
+            <Fab
+              color="error"
+              aria-label="clear"
               onClick={handleResetReadState}
-              sx={{ 
-                position: 'fixed', 
-                bottom: 24, 
+              sx={{
+                position: 'fixed',
+                bottom: 24,
                 right: 24,
                 boxShadow: '0 4px 12px rgba(244, 67, 54, 0.3)'
               }}
