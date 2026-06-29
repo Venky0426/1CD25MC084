@@ -114,7 +114,7 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Box display="flex" flexDirection="column" minHeight="100vh" bgcolor="#f4f6f8">
+      <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', bgcolor: '#f4f6f8' }}>
         <Navbar 
           activePage={activePage} 
           setActivePage={setActivePage} 

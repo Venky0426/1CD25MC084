@@ -128,7 +128,7 @@ export function PriorityInboxPage({ readNotificationIds, onMarkAsRead }) {
       </Box>
 
       {loading && (
-        <Box display="flex" justifyContent="center" py={8}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', py: 8 }}>
           <CircularProgress color="secondary" thickness={4} />
         </Box>
       )}

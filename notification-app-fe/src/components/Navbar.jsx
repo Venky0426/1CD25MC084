@@ -27,14 +27,14 @@ export function Navbar({ activePage, setActivePage, unreadCount }) {
   return (
     <AppBar position="sticky" sx={{ background: 'linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)', boxShadow: '0 4px 20px rgba(0,0,0,0.15)' }}>
       <Toolbar sx={{ justifyContent: 'space-between' }}>
-        <Box display="flex" alignItems="center" gap={1}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
           <NotificationsIcon sx={{ fontSize: 28, color: '#00f2fe' }} />
           <Typography variant="h6" fontWeight={800} sx={{ letterSpacing: '0.5px' }}>
             Campus<span style={{ color: '#00f2fe' }}>Connect</span>
           </Typography>
         </Box>
 
-        <Box display="flex" alignItems="center" gap={1.5}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
           <Button
             variant={activePage === 'feed' ? 'contained' : 'text'}
             onClick={() => setActivePage('feed')}
